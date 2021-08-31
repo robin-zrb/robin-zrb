@@ -1,0 +1,1652 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Application S3 Buckets
+
+Resources:
+  llycnibuidoctornewdevpublic:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-idoctor-new-dev-public
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      CorsConfiguration:
+        CorsRules:
+          - 
+            AllowedHeaders:
+                - '*'
+            AllowedMethods:
+                - PUT
+                - GET
+            AllowedOrigins:
+                - 'http://localhost:4202'
+                - 'http://localhost:4201'
+                - 'http://localhost:4200'
+                - 'https://idoctoradmin.dev.lilly.cn'
+                - 'https://idoctorwechat.dev.lilly.cn'
+                - 'https://idoctorwecom.dev.lilly.cn'
+            ExposedHeaders:
+                - ETag
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibuidoctornewdevpublicpolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibuidoctornewdevpublic
+    Properties:
+      Bucket:
+        Ref: "llycnibuidoctornewdevpublic"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-idoctor-new-dev-public/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+        - 
+            Sid: Cloudfront config
+            Effect: Allow
+            Principal:
+                AWS: 'arn:aws-cn:iam::cloudfront:user/CloudFront Origin Access Identity E5W2CWEZU2EPA'
+            Action: 's3:GetObject'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-idoctor-new-dev-public/*'
+
+  llycnibuidoctornewdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-idoctor-new-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      CorsConfiguration:
+        CorsRules:
+          - 
+            AllowedHeaders:
+                - '*'
+            AllowedMethods:
+                - PUT
+                - GET
+            AllowedOrigins:
+                - 'http://localhost:4202'
+                - 'http://localhost:4201'
+                - 'http://localhost:4200'
+                - 'https://idoctoradmin.dev.lilly.cn'
+                - 'https://idoctorwechat.dev.lilly.cn'
+                - 'https://idoctorwecom.dev.lilly.cn'
+            ExposedHeaders:
+                - ETag
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'aws:kms'
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibuidoctornewdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibuidoctornewdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycnibuidoctornewdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-idoctor-new-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycnibuinursenewdevpublic:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-inurse-new-dev-public
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      CorsConfiguration:
+        CorsRules:
+          - 
+            AllowedHeaders:
+                - '*'
+            AllowedMethods:
+                - PUT
+                - GET
+            AllowedOrigins:
+                - 'http://localhost:4200'
+                - 'https://inurseadmin.dev.lilly.cn'
+                - 'https://inursewechat.dev.lilly.cn'
+            ExposedHeaders:
+                - ETag
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibuinursenewdevpublicpolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibuinursenewdevpublic
+    Properties:
+      Bucket:
+        Ref: "llycnibuinursenewdevpublic"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-inurse-new-dev-public/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+        - 
+            Sid: Cloudfront config
+            Effect: Allow
+            Principal:
+                AWS: 'arn:aws-cn:iam::cloudfront:user/CloudFront Origin Access Identity E5W2CWEZU2EPA'
+            Action: 's3:GetObject'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-inurse-new-dev-public/*'
+
+  llycnibuipharmacistnewdevpublic:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-ipharmacist-new-dev-public
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      CorsConfiguration:
+        CorsRules:
+          - 
+            AllowedHeaders:
+                - '*'
+            AllowedMethods:
+                - PUT
+                - GET
+            AllowedOrigins:
+                - 'http://localhost:4200'
+                - 'https://ipharmacistadmin.dev.lilly.cn'
+                - 'https://ipharmacistwechat.dev.lilly.cn'
+            ExposedHeaders:
+                - ETag
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibuipharmacistnewdevpublicpolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibuipharmacistnewdevpublic
+    Properties:
+      Bucket:
+        Ref: "llycnibuipharmacistnewdevpublic"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-ipharmacist-new-dev-public/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+        - 
+            Sid: Cloudfront config
+            Effect: Allow
+            Principal:
+                AWS: 'arn:aws-cn:iam::cloudfront:user/CloudFront Origin Access Identity E5W2CWEZU2EPA'
+            Action: 's3:GetObject'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-ipharmacist-new-dev-public/*'
+
+  llycnibuipharmacistnewdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-ipharmacist-new-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      CorsConfiguration:
+        CorsRules:
+          - 
+            AllowedHeaders:
+                - '*'
+            AllowedMethods:
+                - PUT
+                - GET
+            AllowedOrigins:
+                - 'http://localhost:4200'
+                - 'https://ipharmacistadmin.dev.lilly.cn'
+                - 'https://ipharmacistwechat.dev.lilly.cn'
+            ExposedHeaders:
+                - ETag
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'aws:kms'
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibuipharmacistnewdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibuipharmacistnewdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycnibuipharmacistnewdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-ipharmacist-new-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycnibuipatientnewdevpublic:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-ipatient-new-dev-public
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      CorsConfiguration:
+        CorsRules:
+          - 
+            AllowedHeaders:
+                - '*'
+            AllowedMethods:
+                - PUT
+                - GET
+            AllowedOrigins:
+                - 'http://localhost:4200'
+                - 'https://ipatientadmin.dev.lilly.cn'
+                - 'https://ipatientwechat.dev.lilly.cn'
+                - 'https://ipatientminiprogram.dev.lilly.cn'
+            ExposedHeaders:
+                - ETag
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibuipatientnewdevpublicpolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibuipatientnewdevpublic
+    Properties:
+      Bucket:
+        Ref: "llycnibuipatientnewdevpublic"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-ipatient-new-dev-public/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+        - 
+            Sid: Cloudfront config
+            Effect: Allow
+            Principal:
+                AWS: 'arn:aws-cn:iam::cloudfront:user/CloudFront Origin Access Identity E5W2CWEZU2EPA'
+            Action: 's3:GetObject'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-ipatient-new-dev-public/*'
+
+  llycnibucmdsnewdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-cmds-new-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      CorsConfiguration:
+        CorsRules:
+          - 
+            AllowedHeaders:
+                - '*'
+            AllowedMethods:
+                - PUT
+                - GET
+            AllowedOrigins:
+                - 'http://localhost:4200'
+                - 'https://cmdsadmin.dev.lilly.cn'
+            ExposedHeaders:
+                - ETag
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'aws:kms'
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibucmdsnewdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibucmdsnewdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycnibucmdsnewdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-cmds-new-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycnibuidoctornewdevpubliciam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-idoctor-new-dev-public"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:DeleteObject'
+              - 's3:DeleteObjectVersion'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:RestoreObject'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-idoctor-new-dev-public'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-idoctor-new-dev-public/*'
+      Groups:
+        - lly-cn-ibu-idoctor-new-dev-public
+
+  llycnibuidoctornewdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-idoctor-new-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:DeleteObject'
+              - 's3:DeleteObjectVersion'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:RestoreObject'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-idoctor-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-idoctor-new-dev-private/*'
+      Groups:
+        - lly-cn-ibu-idoctor-new-dev-private
+
+  llycnibuinursenewdevpubliciam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-inurse-new-dev-public"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:DeleteObject'
+              - 's3:DeleteObjectVersion'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:RestoreObject'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-inurse-new-dev-public'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-inurse-new-dev-public/*'
+      Groups:
+        - lly-cn-ibu-inurse-new-dev-public
+
+  llycnibuipharmacistnewdevpubliciam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-ipharmacist-new-dev-public"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:DeleteObject'
+              - 's3:DeleteObjectVersion'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:RestoreObject'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-ipharmacist-new-dev-public'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-ipharmacist-new-dev-public/*'
+      Groups:
+        - lly-cn-ibu-ipharmacist-new-dev-public
+
+  llycnibuipharmacistnewdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-ipharmacist-new-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:DeleteObject'
+              - 's3:DeleteObjectVersion'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:RestoreObject'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-ipharmacist-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-ipharmacist-new-dev-private/*'
+      Groups:
+        - lly-cn-ibu-ipharmacist-new-dev-private
+
+  llycnibuipatientnewdevpubliciam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-ipatient-new-dev-public"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:DeleteObject'
+              - 's3:DeleteObjectVersion'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:RestoreObject'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-ipatient-new-dev-public'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-ipatient-new-dev-public/*'
+      Groups:
+        - lly-cn-ibu-ipatient-new-dev-public
+
+  llycnibucmdsnewdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-cmds-new-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:DeleteObject'
+              - 's3:DeleteObjectVersion'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:RestoreObject'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-new-dev-private/*'
+      Groups:
+        - lly-cn-ibu-cmds-new-dev-private
+
+  llycnibucmdsimeetingnewdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-cmds-imeeting-new-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibucmdsimeetingnewdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibucmdsimeetingnewdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycnibucmdsimeetingnewdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-cmds-imeeting-new-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycnibucmdsabcnewdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-cmds-abc-new-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibucmdsabcnewdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibucmdsabcnewdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycnibucmdsabcnewdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-cmds-abc-new-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycnibucmdsrapidnewdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-cmds-rapid-new-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibucmdsrapidnewdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibucmdsrapidnewdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycnibucmdsrapidnewdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-cmds-rapid-new-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycnibucmdsstarnewdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-cmds-star-new-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibucmdsstarnewdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibucmdsstarnewdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycnibucmdsstarnewdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-cmds-star-new-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycnibucmdsworkdaynewdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-cmds-workday-new-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibucmdsworkdaynewdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibucmdsworkdaynewdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycnibucmdsworkdaynewdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-cmds-workday-new-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycnibucmdsodsnewdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-cmds-ods-new-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycnibucmdsodsnewdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycnibucmdsodsnewdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycnibucmdsodsnewdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-cmds-ods-new-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycnibus3bucketpolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IBU CN S3 Buckets"
+      ManagedPolicyName: "lly-cn-ibu-s3"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:DeleteObject'
+              - 's3:DeleteObjectVersion'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:RestoreObject'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-imeeting-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-imeeting-new-dev-private/*'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-abc-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-abc-new-dev-private/*'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-rapid-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-rapid-new-dev-private/*'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-star-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-star-new-dev-private/*'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-workday-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-workday-new-dev-private/*'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-ods-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-ods-new-dev-private/*'
+      Groups:
+        - dev-ibu-china-developers-3
+
+  llycnibucmdsimeetingnewdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-cmds-imeeting-new-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-imeeting-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-imeeting-new-dev-private/*'
+      Groups:
+        - lly-cn-ibu-cmds-imeeting-new-dev-private
+
+  llycnibucmdsrapidnewdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-cmds-rapid-new-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-rapid-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-rapid-new-dev-private/*'
+      Groups:
+        - lly-cn-ibu-cmds-rapid-new-dev-private
+
+  llycnibucmdsstarnewdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-cmds-star-new-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-star-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-star-new-dev-private/*'
+      Groups:
+        - lly-cn-ibu-cmds-star-new-dev-private
+
+  llycnibucmdsabcnewdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-cmds-abc-new-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-abc-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-abc-new-dev-private/*'
+      Groups:
+        - lly-cn-ibu-cmds-abc-new-dev-private
+
+  llycnibucmdsworkdaynewdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-cmds-workday-new-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-workday-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-workday-new-dev-private/*'
+      Groups:
+        - lly-cn-ibu-cmds-workday-new-dev-private
+
+  llycnibucmdsodsnewdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-cmds-ods-new-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-ods-new-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-cmds-ods-new-dev-private/*'
+      Groups:
+        - lly-cn-ibu-cmds-ods-new-dev-private
+
+  llycniburapidcmdsdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-rapid-cmds-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycniburapidcmdsdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycniburapidcmdsdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycniburapidcmdsdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-rapid-cmds-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycniburapididoctordevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-rapid-idoctor-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycniburapididoctordevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycniburapididoctordevprivate
+    Properties:
+      Bucket:
+        Ref: "llycniburapididoctordevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-rapid-idoctor-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycniburapidipatientdevprivate:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: lly-cn-ibu-rapid-ipatient-dev-private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: 'TRUE'
+        BlockPublicPolicy: 'TRUE'
+        IgnorePublicAcls: 'TRUE'
+        RestrictPublicBuckets: 'TRUE'
+      LifecycleConfiguration:
+        Rules:
+        - Id: Retention Policy
+          Status: Enabled
+          NoncurrentVersionExpirationInDays: 35
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+      Tags:
+        - Key: "SystemCustodian"
+          Value: "129121"
+        - Key: "SystemOwner"
+          Value: "2169288"
+        - Key: "PrimaryItContact"
+          Value: "2155037"
+        - Key: "CostCenter"
+          Value: "5205061"
+        - Key: "CostCenterApprover"
+          Value: "2032820"
+        - Key: "ProjectName"
+          Value: "CFC"
+        - Key: "Level1BusinessArea"
+          Value: "IBU"
+  llycniburapidipatientdevprivatepolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn:
+    - llycniburapidipatientdevprivate
+    Properties:
+      Bucket:
+        Ref: "llycniburapidipatientdevprivate"
+      PolicyDocument:
+        Statement:
+        - 
+            Sid: Deny non-HTTPS access
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 'arn:aws-cn:s3:::lly-cn-ibu-rapid-ipatient-dev-private/*'
+            Condition:
+                Bool:
+                    'aws:SecureTransport': 'false'
+
+  llycniburapidcmdsdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-rapid-cmds-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-rapid-cmds-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-rapid-cmds-dev-private/*'
+      Groups:
+        - lly-cn-ibu-rapid-cmds-dev-private
+
+  llycniburapididoctordevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-rapid-idoctor-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-rapid-idoctor-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-rapid-idoctor-dev-private/*'
+      Groups:
+        - lly-cn-ibu-rapid-idoctor-dev-private
+
+  llycniburapidipatientdevprivateiam:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      Description: "IAM Policy for IAM Group for S3 Application"
+      ManagedPolicyName: "lly-cn-ibu-rapid-ipatient-dev-private"
+      Path: "/"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - 
+          Effect: Allow
+          Action:
+              - 'kms:Describe*'
+          Resource:
+              - '*'
+        - 
+          Effect: Allow
+          Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:ListBucket'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectVersionAcl'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectVersionTagging'
+              - 's3:GetBucketLocation'
+              - 's3:GetBucketVersioning'
+              - 's3:ListBucketVersions'
+              - 's3:GetMetricsConfiguration'
+          Resource:
+              - 'arn:aws-cn:s3:::lly-cn-ibu-rapid-ipatient-dev-private'
+              - 'arn:aws-cn:s3:::lly-cn-ibu-rapid-ipatient-dev-private/*'
+      Groups:
+        - lly-cn-ibu-rapid-ipatient-dev-private
